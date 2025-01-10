@@ -4,7 +4,7 @@ Este proyecto utiliza un modelo de inteligencia artificial para clasificar imág
 En el archivo ia.ipynb hay un notebook con una explicación de la estructura utilizada para la ia y su funcionameinto.
 ## Tecnologías utilizadas
 
-- **Python** (lenguaje de programación principal)
+- **Python**
 - **NumPy** (para procesamiento de datos)
 - **Matplotlib** (para visualización de resultados)
 - **MNIST** (conjunto de datos de entrenamiento y prueba)
