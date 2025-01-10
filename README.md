@@ -5,7 +5,6 @@ En el archivo ia.ipynb hay un notebook con una explicación de la estructura uti
 ## Tecnologías utilizadas
 
 - **Python** (lenguaje de programación principal)
-- **TensorFlow** o **Keras** (para construir y entrenar el modelo de IA)
 - **NumPy** (para procesamiento de datos)
 - **Matplotlib** (para visualización de resultados)
 - **MNIST** (conjunto de datos de entrenamiento y prueba)
