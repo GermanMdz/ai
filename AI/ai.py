@@ -2,6 +2,8 @@ import pandas as pd
 from Classifier import Classifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import json
+# import numpy as np
 
 mnist = pd.read_csv("../mnist.csv", header = None)
 tags = mnist.pop(0)
@@ -13,9 +15,18 @@ model = Classifier(
     sizes = [784, 16, 10], 
     learning_rate = 0.1,
     batch_size = 32,
-    epochs = 2
+    epochs = 50
 )
 
 model.fit(x_train, y_train)
+
+model.to_json()
+
 prediction = model.predict(x_test)
 print(accuracy_score(y_test, prediction))
+
+# one predict only
+# prediction = model.getOutput(x_test.iloc[0].values.reshape(-1, 1))
+# print("The number is: ", y_test.iloc[0])
+# print("The prediction is: ", np.argmax(prediction))
+

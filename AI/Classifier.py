@@ -1,3 +1,4 @@
+import json
 import numpy as np
 import pandas as pd
 import time
@@ -77,6 +78,17 @@ class Classifier:
             prediction = self.getOutput(sample.values.reshape(-1, 1))
             predictions[i] = np.argmax(prediction)
         return predictions
+    
+    def to_json(self):
+        with open("model.json", "w") as file:
+            json_model = {}
+            for layer in range(len(self.sizes)-1):
+                json_model[f"layer{layer}"] = {
+                    "weights": self.weights[layer].tolist(),
+                    "biases": self.biases[layer].tolist()
+                }
+            json.dump(json_model, file)
+
 
 
 # +-------------------+
