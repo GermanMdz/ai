@@ -3,9 +3,9 @@ from Classifier import Classifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import json
-# import numpy as np
+import numpy as np
 
-mnist = pd.read_csv("../mnist.csv", header = None)
+mnist = pd.read_csv("../../mnist.csv", header = None)
 tags = mnist.pop(0)
 images = mnist / 255
 
@@ -20,13 +20,14 @@ model = Classifier(
 
 model.fit(x_train, y_train)
 
-model.to_json()
+model.to_json("../web/models","numberClassifier.json")
 
 prediction = model.predict(x_test)
 print(accuracy_score(y_test, prediction))
 
 # one predict only
-# prediction = model.getOutput(x_test.iloc[0].values.reshape(-1, 1))
-# print("The number is: ", y_test.iloc[0])
+# a = images.iloc[1]
+# prediction = model.getOutput(a.values.reshape(-1, 1))
+# print("The number is: ", tags[1])
 # print("The prediction is: ", np.argmax(prediction))
 

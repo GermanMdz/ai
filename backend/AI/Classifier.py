@@ -1,9 +1,21 @@
 import json
+import os
 import numpy as np
 import pandas as pd
 import time
 
-class Classifier:
+class BaseClassifier:
+    def __init__(self, weights=None, biases=None):
+        self.weights = weights or []
+        self.biases = biases or []
+    
+    def getOutput(self, x: np.ndarray):
+        for b,w in zip(self.biases, self.weights):
+            x = sigmoid(np.dot(w,x)+b)
+        return x
+        
+
+class Classifier(BaseClassifier):
     def __init__(self, sizes, learning_rate=0.01, batch_size=16, epochs=10):
         """ Constructor de la red neuronal """
         self.num_layers = len(sizes)
@@ -48,12 +60,6 @@ class Classifier:
             total_gradient_biases = [tgb + dgb for tgb,dgb in zip(total_gradient_biases,delta_gradient_biases)]
         self.weights = [w - gw * self.learning_rate for w,gw in zip(self.weights, total_gradient_weights)]
         self.biases = [b - gb * self.learning_rate for b,gb in zip(self.biases, total_gradient_biases)]
-            
-    
-    def getOutput(self, x: np.ndarray):
-        for b,w in zip(self.biases, self.weights):
-            x = sigmoid(np.dot(w,x)+b)
-        return x
 
     def fit(self, x_train, y_train):
         x_train = [x.values.reshape(-1,1) for i,x in x_train.iterrows()]
@@ -79,8 +85,8 @@ class Classifier:
             predictions[i] = np.argmax(prediction)
         return predictions
     
-    def to_json(self):
-        with open("model.json", "w") as file:
+    def to_json(self, path, name):
+        with open(os.path.join(path, name), "w") as file:
             json_model = {}
             for layer in range(len(self.sizes)-1):
                 json_model[f"layer{layer}"] = {
