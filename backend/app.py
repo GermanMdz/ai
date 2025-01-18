@@ -1,10 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import numpy as np
 from AI.Classifier import BaseClassifier
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../frontend")
 CORS(app)
+
+@app.route("/")
+def index():
+    return send_from_directory(app.static_folder, "index.html")
+
 def parseAtributes(data):
     w,b = [], []
     num_layers = len([key for key in data.keys() if 'layer' in key])

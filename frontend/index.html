@@ -122,7 +122,7 @@
         }
 
         async function getOutput(nn, x) {
-            fetch('http://localhost:5000/process_data', {
+            fetch('/process_data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
