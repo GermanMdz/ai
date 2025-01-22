@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import numpy as np
 from AI.Classifier import BaseClassifier
 from flask_cors import CORS
+import os
 
 app = Flask(__name__, static_folder="../frontend")
 CORS(app)
@@ -31,5 +32,5 @@ def process_data():
     return jsonify(np.argmax(result).tolist())
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
     
